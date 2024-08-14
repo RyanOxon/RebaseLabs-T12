@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'capybara'
+gem 'csv'
+gem 'pg'
+gem 'puma'
+gem 'rack-test'
+gem 'rspec'
+gem 'sinatra'
+gem 'sinatra-contrib'

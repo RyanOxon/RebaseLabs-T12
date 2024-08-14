@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres
+    container_name: mypg
+    environment:
+      - POSTGRES_USER=rebase_labs
+      - POSTGRES_PASSWORD=labs_password
+      - POSTGRES_DB=mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    image: ruby
+    container_name: myweb
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true 
+    command: bash -c "bundle install && ruby bin/api.rb"
+  
+  test:
+    image: ruby
+    container_name: mytest
+    volumes:
+      - .:/app
+    working_dir: /app
+    depends_on:
+      - db
+    command: bash -c "bundle install && bundle exec rspec"
+
+volumes:
+  db_data:
