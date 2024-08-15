@@ -11,9 +11,10 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  app:
-    image: ruby
-    container_name: myweb
+  api:
+    build:
+      dockerfile: Dockerfile.api
+    container_name: myapi
     volumes:
       - .:/app
     working_dir: /app
@@ -23,16 +24,40 @@ services:
       - db
     tty: true
     stdin_open: true 
-    command: bash -c "bundle install && ruby bin/api.rb"
+    command: bash -c "bundle install --without test && ruby api/app.rb"
   
-  test:
+  web:
     image: ruby
-    container_name: mytest
+    container_name: myweb
     volumes:
       - .:/app
     working_dir: /app
+    ports:
+      - "4000:4000"
     depends_on:
       - db
+    tty: true
+    stdin_open: true 
+    command: bash -c "bundle install --without test && ruby web/app.rb"
+
+  apitest:
+    image: ruby
+    container_name: apitest
+    volumes:
+      - .:/app
+    working_dir: /app/api
+    depends_on:
+      - api
+    command: bash -c "bundle install && bundle exec rspec"
+
+  webtest:
+    image: ruby
+    container_name: webtest
+    volumes:
+      - .:/app
+    working_dir: /app/web
+    depends_on:
+      - web
     command: bash -c "bundle install && bundle exec rspec"
 
 volumes:

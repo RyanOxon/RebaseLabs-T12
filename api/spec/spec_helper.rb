@@ -2,7 +2,7 @@ ENV['RACK_ENV'] = 'test'
 
 require 'rspec'
 require 'rack/test'
-require_relative '../bin/api'
+require_relative '../app'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
@@ -18,8 +18,8 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
-end
 
-def app
-  Sinatra::Application
+  def app
+    Sinatra::Application
+  end
 end
