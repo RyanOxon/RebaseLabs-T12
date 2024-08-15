@@ -1,10 +1,17 @@
 require 'sinatra'
 require 'rack/handler/puma'
+require 'faraday'
+require 'json'
 
-set :views, File.expand_path('../src/views', __dir__)
+configure do
+  set :layout, :layout
+end
 
-get '/exams' do
-  erb :exams
+get '/tests' do
+  @page = params[:page] ? params[:page].to_i : 1
+  @exams = JSON.parse(Faraday.get('http://api:3000/tests').body)
+  @sliced_exams = @exams[(@page - 1) * 10, 10]
+  erb :tests
 end
 
 unless ENV['RACK_ENV'] == 'test'

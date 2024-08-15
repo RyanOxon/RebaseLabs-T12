@@ -1,10 +1,18 @@
 ENV['RACK_ENV'] = 'test'
 
+require 'capybara/rspec'
 require 'rspec'
 require 'rack/test'
 require_relative '../app'
 
+def app
+  Sinatra::Application
+end
+
 RSpec.configure do |config|
+  Capybara.app = app
+
+  config.include Capybara::DSL
   config.include Rack::Test::Methods
 
   config.expect_with :rspec do |expectations|
@@ -18,8 +26,4 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
-
-  def app
-    Sinatra::Application
-  end
 end
