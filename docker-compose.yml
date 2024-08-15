@@ -11,9 +11,8 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  api:
-    build:
-      dockerfile: Dockerfile.api
+  api:  
+    image: ruby
     container_name: myapi
     volumes:
       - .:/app
