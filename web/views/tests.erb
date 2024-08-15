@@ -1,6 +1,5 @@
-<section>
 <h1>Lista de Exames</h1>
-  <table class="table">
+  <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col" class="col-1">id</th>
@@ -14,10 +13,10 @@
       <% @sliced_exams.each do |exam| %>
         <tr>
           <th scope="row"><%= exam["id"] %></th>
-          <td><%= exam["nome_paciente"] %></td>
-          <td><%= exam["tipo_exame"] %></td>
-          <td><%= exam["token_resultado_exame"] %></td>
-          <td><%= exam["data_exame"] %></td>
+          <td><%= exam["patient_name"] %></td>
+          <td><%= exam["test_type"] %></td>
+          <td><%= exam["result_token"] %></td>
+          <td><%= exam["result_date"] %></td>
         </tr>
       <% end %>
     </tbody>
@@ -27,6 +26,5 @@
   <a href="/tests?page=<%= @page - 1 %>" class="btn btn-primary <%= 'disabled' if @page <= 1 %>">Anterior</a>
   <a href="/tests?page=<%= @page + 1 %>" class="btn btn-primary <%= 'disabled' if @sliced_exams.length < 10 %>">Próximo</a>
 </div>
-</section>
 
   

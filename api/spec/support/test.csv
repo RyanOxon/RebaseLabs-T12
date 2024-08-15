@@ -1,3 +1,4 @@
-cpf;nome paciente;email paciente;data nascimento paciente;endereço/rua paciente;cidade paciente;estado paciente;crm médico;crm médico estado;nome médico;email médico;token resultado exame;data exame;tipo exame;limites tipo exame;resultado tipo exame
+cpf;patient_name;patient_email;patient_birthday;patient_address;patient_city;patient_state;doctor_crm;doctor_crm_state;doctor_name;doctor_email;result_token;result_date;test_type;test_limits;test_result
 123.456.789-10;Testonaldo primeiro;testonaldo@daSilva.com;01-01-1990;123 Rua Teste;Teste;TS;123456;TS;Doutor a Testado;a@testado.com;123456;01-01-2020;Teste;0-10;5
+123.456.789-10;Testonaldo primeiro;testonaldo@daSilva.com;01-01-1990;123 Rua Teste;Teste;TS;123456;TS;Doutor a Testado;a@testado.com;123456;01-01-2020;Teste2;10-15;20
 123.456.789-11;Testonalda segunda;testonalda@daSilva.com;01-10-2002;654 Rua sem Teste;Teste;TS;123456;TS;Doutor a Testado;a@testado.com;314551;01-01-2020;Teste;0-10;11

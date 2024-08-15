@@ -1,8 +1,11 @@
-require_relative 'src/models/database'
+require_relative 'src/database'
+require_relative 'src/helpers'
 require 'sinatra'
 require 'sinatra/json'
 require 'csv'
 require 'rack/handler/puma'
+
+helpers Helpers
 
 database = if ENV['RACK_ENV'] == 'test'
              Database.new('tests', 'spec/support/test.csv')
@@ -12,6 +15,13 @@ database = if ENV['RACK_ENV'] == 'test'
 
 get '/tests' do
   json database.all
+end
+
+get '/tests/:token' do
+  result = database.find_by_token(params[:token])
+  tests_data = build_tests_data(result)
+  response = build_response(result, tests_data)
+  json response
 end
 
 unless ENV['RACK_ENV'] == 'test'

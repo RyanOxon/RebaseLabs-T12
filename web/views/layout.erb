@@ -7,7 +7,7 @@
   <title>RebaseLabs</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="bg-body-tertiary">
   <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Rebase Labs</a>
@@ -15,23 +15,26 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/tests">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Importar csv</a>
-        </li>
-      </ul>
-      <form class="d-flex col-3" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar exame por Token" aria-label="Search">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link <%= 'active' if request.path_info == '/tests' %>" href="/tests">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= 'active' if request.path_info == '/search' %>" href="/search">Buscar exame</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= 'active' if request.path_info == '/import' %>" href="/import">Importar csv</a>
+      </li>
+    </ul>
+      <form action="/search" method="GET" class="d-flex col-3 <%= "d-none" if request.path_info == '/search'%>" role="search">
+        <input class="form-control me-2" type="search" name="token" placeholder="Buscar exame por Token" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
   </div>
 </nav>
-  <div class="container mt-4">
+  <section class="container mt-4 min-vh-80 ">
     <%= yield %>
-  </div>
+  </section>
 </body>
 </html>

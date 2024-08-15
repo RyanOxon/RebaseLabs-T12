@@ -6,12 +6,10 @@ Style/FrozenStringLiteralComment:
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
-    - 'lib/**/*'
-    - 'src/**/*'
+    - 'api/**/*'
+    - 'web/**/*'
 
 Metrics:
   Exclude:
-    - 'spec/**/*'
-    - 'lib/**/*'
-    - 'src/**/*'
+    - 'api/**/*'
+    - 'web/**/*'
