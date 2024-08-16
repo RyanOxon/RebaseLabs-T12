@@ -27,8 +27,8 @@
       </li>
     </ul>
       <form action="/search" method="GET" class="d-flex col-3 <%= "d-none" if request.path_info == '/search'%>" role="search">
-        <input class="form-control me-2" type="search" name="token" placeholder="Buscar exame por Token" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2" id="nav-search" type="search" name="token" placeholder="Buscar exame por Token" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
     </div>
   </div>

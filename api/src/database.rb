@@ -59,6 +59,8 @@ class Database
       )
     end
     true
+  rescue StandardError
+    false
   end
 
   def query(query)

@@ -1,8 +1,8 @@
 <section>
-  <form action="/search" method="GET" class="d-flex row justify-content-center">
+  <form action="/search" id="page-search" method="GET" class="d-flex row justify-content-center">
     <div class= "col-5 d-flex">
-      <input class="form-control me-2" type="search" name="token" placeholder="Digite o Token do exame" aria-label="Search">
-      <button class="btn btn-outline-primary" type="submit">Search</button>
+      <input class="form-control me-2" id="search" type="search" name="token" placeholder="Digite o Token do exame" aria-label="Search">
+      <button class="btn btn-outline-primary" type="submit">Buscar</button>
     </div>
   </form>
 </section>
@@ -10,13 +10,14 @@
 <section class="bg-white mt-4 py-4 px-3 shadow row">
   <% if @tests %>
   <aside class="col-md-3 ms-0 border-end">
-    <ul class="list-group list-group-flush">
+    <ul class="list-group">
+      <li class="list-group-item bg-body-secondary"><strong>Data do Exame:</strong> <%= @tests["result_date"] %></li>
       <li class="list-group-item"><strong>Paciente:</strong> <%= @tests["name"] %></li>
       <li class="list-group-item"><strong>Email:</strong> <%= @tests["email"] %> </li>
       <li class="list-group-item"><strong>CPF:</strong> <%= @tests["cpf"] %></li>
       <li class="list-group-item"><strong>Data de Nascimento:</strong> <%= @tests["birthday"] %></li>
-      <li class="list-group-item"><strong>Medico:</strong> <%= @tests["doctor"]["name"] %></li>
-      <li class="list-group-item"><strong>CRM:</strong> <%= @tests["doctor"]["crm"] %></li>
+      <li class="list-group-item bg-body-secondary"><strong>Medico:</strong> <%= @tests["doctor"]["name"] %></li>
+      <li class="list-group-item bg-body-secondary"><strong>CRM:</strong> <%= @tests["doctor"]["crm"] %></li>
     </ul>
   </aside>
   <main class="col ms-2">
@@ -26,10 +27,10 @@
       <% @tests["tests"].each do |test| %>
         <div class="col">
           <div class="card h-100 shadow-sm">
-            <div class="card-header fs-5"><%= test["test_type"] %></div>
+            <div class="card-header fs-5"><%= test["type"] %></div>
             <div class="card-body">
-              <p class="card-text m-0"><strong>Resultado:</strong> <%= test["test_result"] %></p>
-              <p class="card-text m-0"><strong>Limites:</strong> <%= test["test_limits"] %></p>
+              <p class="card-text m-0"><strong>Resultado:</strong> <%= test["result"] %></p>
+              <p class="card-text m-0"><strong>Limites:</strong> <%= test["limits"] %></p>
             </div>
           </div>
         </div>
@@ -37,6 +38,12 @@
     </article>
   </main>
   <% else %>
-    <p class="fw-bold fs-4">Insira um Token valido no campo de busca</p>
+    <p class="fw-bold fs-4">
+      <% if params[:token] %>
+        Nenhum exame encontrado com o token <%= params[:token] %>
+      <% else %>
+        Insira um Token valido no campo de busca
+      <% end %>
+    </p>
   <% end %>
 </section>

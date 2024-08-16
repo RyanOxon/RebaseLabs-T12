@@ -19,10 +19,21 @@ RSpec.describe 'GET /tests/:token', type: :request do
     expect(response['doctor']['crm_state']).to eq('TS')
     expect(response['doctor']['name']).to eq('Doutor a Testado')
     expect(response['tests'].size).to eq(2)
-    expect(response['tests'][0]['test_type']).to eq('Teste')
-    expect(response['tests'][0]['test_limits']).to eq('0-10')
-    expect(response['tests'][0]['test_result']).to eq('5')
-    expect(response['tests'][1]['test_type']).to eq('Teste2')
+    expect(response['tests'][0]['type']).to eq('Teste')
+    expect(response['tests'][0]['limits']).to eq('0-10')
+    expect(response['tests'][0]['result']).to eq('5')
+    expect(response['tests'][1]['type']).to eq('Teste2')
+
+    db.query('DROP TABLE IF EXISTS tests')
+  end
+
+  it 'not found' do
+    db = Database.new('tests', 'spec/support/test.csv')
+
+    get '/tests/1234567'
+
+    expect(last_response.status).to eq(404)
+    expect(JSON.parse(last_response.body)).to eq({ 'error' => 'Token não encontrado' })
 
     db.query('DROP TABLE IF EXISTS tests')
   end

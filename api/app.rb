@@ -19,9 +19,13 @@ end
 
 get '/tests/:token' do
   result = database.find_by_token(params[:token])
-  tests_data = build_tests_data(result)
-  response = build_response(result, tests_data)
-  json response
+
+  if result.any?
+    response = build_response(result)
+    json response
+  else
+    halt 404, json({ error: 'Token não encontrado' })
+  end
 end
 
 unless ENV['RACK_ENV'] == 'test'

@@ -12,14 +12,16 @@ get '/' do
 end
 
 get '/tests' do
-  @page = params[:page] ? params[:page].to_i : 1
   @exams = JSON.parse(Faraday.get('http://api:3000/tests').body)
+  @page = params[:page] ? params[:page].to_i : 1
   @sliced_exams = @exams[(@page - 1) * 10, 10]
   erb :tests
 end
 
 get '/search' do
-  @tests = JSON.parse(Faraday.get("http://api:3000/tests/#{params[:token]}").body) if params[:token]
+  response = Faraday.get("http://api:3000/tests/#{params[:token]}") if params[:token]
+  @tests = JSON.parse(response.body) if response && response.status == 200
+
   erb :search
 end
 

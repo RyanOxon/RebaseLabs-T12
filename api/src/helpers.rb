@@ -2,14 +2,14 @@ module Helpers
   def build_tests_data(result)
     result.map do |test|
       {
-        test_type: test['test_type'],
-        test_limits: test['test_limits'],
-        test_result: test['test_result']
+        type: test['test_type'],
+        limits: test['test_limits'],
+        result: test['test_result']
       }
     end
   end
 
-  def build_response(result, tests_data)
+  def build_response(result)
     {
       result_token: result[0]['result_token'],
       result_date: result[0]['result_date'],
@@ -22,7 +22,7 @@ module Helpers
         crm_state: result[0]['doctor_crm_state'],
         name: result[0]['doctor_name']
       },
-      tests: tests_data
+      tests: build_tests_data(result)
     }
   end
 end
