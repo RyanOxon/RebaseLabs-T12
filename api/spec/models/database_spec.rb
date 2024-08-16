@@ -53,4 +53,13 @@ RSpec.describe Database, type: :model do
       expect(result[1]['result_token']).to eq('123456')
     end
   end
+
+  describe '#insert_table' do
+    it 'inserts rows in the table' do
+      db = Database.new('tests', 'spec/support/empty.csv')
+      db.insert_table('spec/support/test.csv')
+
+      expect(db.query('SELECT * FROM tests').ntuples).to eq(3)
+    end
+  end
 end
