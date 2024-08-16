@@ -132,16 +132,17 @@ Exemplo de resposta
 
 Exemplo de respostas
 
-
+`status: 200`
 ```json
-status: 200
   { 
     "message": "Arquivo será importado em instantes" 
   }
 
-# Caso arquivo vazio ou fora do formato suportado
-status 400
-    { 
+
+```
+Caso arquivo vazio ou fora do formato suportado `status 400`
+```json
+  { 
     "error": "Erro no arquivo CSV" 
   }
 
