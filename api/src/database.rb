@@ -2,9 +2,9 @@ require 'pg'
 require 'csv'
 
 class Database
-  def initialize(table_name, data_csv)
+  def initialize(table_name, data_csv = nil)
     @conn = PG.connect(
-      host: 'mypg',
+      host: 'myPG',
       dbname: 'mydb',
       user: 'rebase_labs',
       password: 'labs_password'
@@ -16,7 +16,7 @@ class Database
   end
 
   def populate_table(data_csv)
-    return false if table?(@table)
+    return false if table?(@table) || data_csv.nil?
 
     @conn.exec("
         CREATE TABLE #{@table}(
@@ -39,7 +39,7 @@ class Database
           test_result VARCHAR(20) NOT NULL
         )
       ")
-    insert_table(@table, data_csv)
+    insert_table(data_csv)
   end
 
   def table?(table_name)
@@ -47,19 +47,21 @@ class Database
     result.getvalue(0, 0) == 't'
   end
 
-  def insert_table(table_name, csv_file)
+  def insert_table(csv_file)
     CSV.foreach(csv_file, col_sep: ';') do |row|
       next if row[0] == 'cpf'
 
       @conn.exec_params(
-        "INSERT INTO #{table_name} (cpf, patient_name, patient_email, patient_birthday, patient_address, patient_city,
+        "INSERT INTO #{@table} (cpf, patient_name, patient_email, patient_birthday, patient_address, patient_city,
         patient_state, doctor_crm, doctor_crm_state, doctor_name, doctor_email, result_token,
         result_date, test_type, test_limits, test_result)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)", row
       )
     end
     true
-  rescue StandardError
+  rescue StandardError => e
+    p "Erro ao inserir dados no banco: #{e.message}"
+    p e.backtrace # Opcional: imprime a stack trace para ajudar na depuração
     false
   end
 

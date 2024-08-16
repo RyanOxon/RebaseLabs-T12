@@ -1,9 +1,11 @@
 require_relative 'src/database'
 require_relative 'src/helpers'
+require_relative 'src/import_job'
 require 'sinatra'
 require 'sinatra/json'
 require 'csv'
 require 'rack/handler/puma'
+require 'fileutils'
 
 helpers Helpers
 
@@ -25,6 +27,22 @@ get '/tests/:token' do
     json response
   else
     halt 404, json({ error: 'Token não encontrado' })
+  end
+end
+
+post '/import' do
+  if params[:file] && params[:file][:tempfile]
+    file = params[:file][:tempfile]
+    filename = params[:file][:filename]
+    permanent_path = "./uploads/#{filename}"
+
+    FileUtils.mv(file.path, permanent_path)
+    CsvImportJob.perform_async(permanent_path)
+
+    status 200
+    json({ message: 'Arquivo será importado em instantes' })
+  else
+    halt 400, json({ error: 'Erro no arquivo CSV' })
   end
 end
 

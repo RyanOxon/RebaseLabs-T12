@@ -4,6 +4,7 @@ gem 'csv'
 gem 'faraday'
 gem 'pg'
 gem 'puma'
+gem 'sidekiq'
 gem 'sinatra'
 gem 'sinatra-contrib'
 

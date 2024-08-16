@@ -1,0 +1,10 @@
+cpf;patient_name;patient_email;patient_birthday;patient_address;patient_city;patient_state;doctor_crm;doctor_crm_state;doctor_name;doctor_email;result_token;result_date;test_type;test_limits;test_result
+123.456.789-00;Carlos Silva;carla.silva@example.com;1985-05-15;123 Rua das Flores;São Paulo;São Paulo;B1234567;SP;Dr. João Souza;joao.souza@example.com;ABC123;2022-01-10;hemácias;45-52;50
+123.456.789-00;Carlos Silva;carla.silva@example.com;1985-05-15;123 Rua das Flores;São Paulo;São Paulo;B1234567;SP;Dr. João Souza;joao.souza@example.com;ABC123;2022-01-10;leucócitos;9-61;55
+123.456.789-00;Carlos Silva;carla.silva@example.com;1985-05-15;123 Rua das Flores;São Paulo;São Paulo;B1234567;SP;Dr. João Souza;joao.souza@example.com;ABC123;2022-01-10;plaquetas;11-93;70
+987.654.321-00;Ana Pereira;ana.pereira@example.com;1990-08-20;456 Avenida Central;Rio de Janeiro;Rio de Janeiro;B7654321;RJ;Dra. Maria Lima;maria.lima@example.com;XYZ789;2022-02-15;hdl;19-75;60
+987.654.321-00;Ana Pereira;ana.pereira@example.com;1990-08-20;456 Avenida Central;Rio de Janeiro;Rio de Janeiro;B7654321;RJ;Dra. Maria Lima;maria.lima@example.com;XYZ789;2022-02-15;ldl;45-54;50
+987.654.321-00;Ana Pereira;ana.pereira@example.com;1990-08-20;456 Avenida Central;Rio de Janeiro;Rio de Janeiro;B7654321;RJ;Dra. Maria Lima;maria.lima@example.com;XYZ789;2022-02-15;vldl;48-72;65
+555.666.777-88;Pedro Oliveira;pedro.oliveira@example.com;1975-12-30;789 Rua das Palmeiras;Belo Horizonte;Minas Gerais;B9876543;MG;Dr. Carlos Mendes;carlos.mendes@example.com;LMN456;2022-03-20;glicemia;25-83;90
+555.666.777-88;Pedro Oliveira;pedro.oliveira@example.com;1975-12-30;789 Rua das Palmeiras;Belo Horizonte;Minas Gerais;B9876543;MG;Dr. Carlos Mendes;carlos.mendes@example.com;LMN456;2022-03-20;tgo;50-84;70
+555.666.777-88;Pedro Oliveira;pedro.oliveira@example.com;1975-12-30;789 Rua das Palmeiras;Belo Horizonte;Minas Gerais;B9876543;MG;Dr. Carlos Mendes;carlos.mendes@example.com;LMN456;2022-03-20;tgp;38-63;55

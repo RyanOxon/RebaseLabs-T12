@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres
-    container_name: mypg
+    container_name: myPG
     environment:
       - POSTGRES_USER=rebase_labs
       - POSTGRES_PASSWORD=labs_password
@@ -13,10 +13,12 @@ services:
 
   api:  
     image: ruby
-    container_name: myapi
+    container_name: myApi
     volumes:
       - .:/app
     working_dir: /app
+    environment:
+      REDIS_URL: redis://myRedis:6379
     ports:
       - "3000:3000"
     depends_on:
@@ -27,7 +29,7 @@ services:
   
   web:
     image: ruby
-    container_name: myweb
+    container_name: myWeb
     volumes:
       - .:/app
     working_dir: /app
@@ -41,7 +43,7 @@ services:
 
   apitest:
     image: ruby
-    container_name: apitest
+    container_name: apiTest
     volumes:
       - .:/app
     working_dir: /app/api
@@ -51,13 +53,35 @@ services:
 
   webtest:
     image: ruby
-    container_name: webtest
+    container_name: webTest
     volumes:
       - .:/app
     working_dir: /app/web
     depends_on:
       - web
     command: bash -c "bundle install && bundle exec rspec"
+
+  redis:
+    image: redis
+    container_name: myRedis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - .:/data
+
+  sidekiq:
+    image: ruby
+    container_name: mySidekiq
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - REDIS_URL=redis://myRedis:6379/0
+    depends_on:
+      - api
+      - redis
+    command: bash -c "bundle install --without test && bundle exec sidekiq -r ./api/src/import_job.rb"
 
 volumes:
   db_data:
