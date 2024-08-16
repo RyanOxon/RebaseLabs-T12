@@ -25,6 +25,10 @@ get '/search' do
   erb :search
 end
 
+get '/import' do
+  erb :import
+end
+
 unless ENV['RACK_ENV'] == 'test'
   Rack::Handler::Puma.run(
     Sinatra::Application,

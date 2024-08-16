@@ -1,7 +1,11 @@
 require 'spec_helper'
-require_relative '../../src/database'
 
 RSpec.describe 'GET /tests/:token', type: :request do
+  after(:each) do
+    db = Database.new('tests')
+    db.drop
+  end
+
   it 'successfully' do
     db = Database.new('tests', 'spec/support/test.csv')
 
@@ -24,7 +28,6 @@ RSpec.describe 'GET /tests/:token', type: :request do
     expect(response['tests'][0]['result']).to eq('5')
     expect(response['tests'][1]['type']).to eq('Teste2')
 
-    db.query('DROP TABLE IF EXISTS tests')
   end
 
   it 'not found' do
@@ -34,7 +37,5 @@ RSpec.describe 'GET /tests/:token', type: :request do
 
     expect(last_response.status).to eq(404)
     expect(JSON.parse(last_response.body)).to eq({ 'error' => 'Token não encontrado' })
-
-    db.query('DROP TABLE IF EXISTS tests')
   end
 end

@@ -76,4 +76,8 @@ class Database
   def find_by_token(token)
     @conn.exec_params("SELECT * FROM #{@table} WHERE result_token = $1", [token]).to_a
   end
+
+  def drop
+    @conn.exec("DROP TABLE IF EXISTS #{@table}")
+  end
 end

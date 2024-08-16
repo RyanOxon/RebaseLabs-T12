@@ -31,10 +31,12 @@ get '/tests/:token' do
 end
 
 post '/import' do
-  if params[:file] && params[:file][:tempfile]
+  if params[:file] && params[:file][:tempfile] && params[:file][:filename].end_with?('.csv')
     file = params[:file][:tempfile]
     filename = params[:file][:filename]
-    permanent_path = "./uploads/#{filename}"
+    upload_path = ENV['RACK_ENV'] == 'test' ? './spec/uploads' : './uploads'
+    FileUtils.mkdir_p(upload_path) unless File.directory?(upload_path)
+    permanent_path = File.join(upload_path, filename)
 
     FileUtils.mv(file.path, permanent_path)
     CsvImportJob.perform_async(permanent_path)

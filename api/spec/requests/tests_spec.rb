@@ -1,7 +1,11 @@
 require 'spec_helper'
-require_relative '../../src/database'
 
 RSpec.describe 'GET /tests', type: :request do
+  after(:each) do
+    db = Database.new('tests')
+    db.drop
+  end
+
   it 'successfully' do
     db = Database.new('tests', 'spec/support/test.csv')
 
@@ -34,7 +38,5 @@ RSpec.describe 'GET /tests', type: :request do
     expect(json[2].keys.size).to eq(17)
     expect(json[2]['patient_name']).to eq('Testonalda segunda')
     expect(json[2]['patient_email']).to eq('testonalda@daSilva.com')
-
-    db.query('DROP TABLE IF EXISTS tests')
   end
 end
